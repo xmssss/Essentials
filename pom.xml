@@ -203,7 +203,7 @@
                             <value>${full.version}</value>
                         </replacement>
                         <replacement>
-                            <token>$${build.number}</token>
+                            <token>2</token>
                             <value>${full.version}</value>
                         </replacement>
                     </replacements>
@@ -288,8 +288,7 @@
         <!-- The plugins' release version -->
         <release.version>2.15.0</release.version>
 
-        <!-- The plugins' build number -->
-        <build.version>${git.closest.tag.commit.count}</build.version>
+        <build.version>evernife.v1</build.version>
 
         <full.version>${release.version}.${build.version}</full.version>
     </properties>

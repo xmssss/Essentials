@@ -18,12 +18,8 @@
 package com.earth2me.essentials;
 
 import com.earth2me.essentials.commands.*;
-import com.earth2me.essentials.metrics.Metrics;
 import com.earth2me.essentials.perm.PermissionsHandler;
 import com.earth2me.essentials.register.payment.Methods;
-import com.earth2me.essentials.signs.SignBlockListener;
-import com.earth2me.essentials.signs.SignEntityListener;
-import com.earth2me.essentials.signs.SignPlayerListener;
 import com.earth2me.essentials.textreader.IText;
 import com.earth2me.essentials.textreader.KeywordReplacer;
 import com.earth2me.essentials.textreader.SimpleTextInput;
@@ -86,10 +82,8 @@ import static com.earth2me.essentials.I18n.tl;
 public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
     private static final Logger LOGGER = Logger.getLogger("Essentials");
     private transient ISettings settings;
-    private final transient TNTExplodeListener tntListener = new TNTExplodeListener(this);
     private transient Jails jails;
     private transient Warps warps;
-    private transient Worth worth;
     private transient List<IConf> confList;
     private transient Backup backup;
     private transient ItemDb itemDb;
@@ -99,7 +93,6 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
     private transient UserMap userMap;
     private transient ExecuteTimer execTimer;
     private transient I18n i18n;
-    private transient Metrics metrics;
     private transient EssentialsTimer timer;
     private final transient Set<String> vanishedPlayers = new LinkedHashSet<>();
     private transient Method oldGetOnlinePlayers;
@@ -204,8 +197,6 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
                 warps = new Warps(getServer(), this.getDataFolder());
                 confList.add(warps);
                 execTimer.mark("Init(Spawn/Warp)");
-                worth = new Worth(this.getDataFolder());
-                confList.add(worth);
                 itemDb = new ItemDb(this);
                 confList.add(itemDb);
                 execTimer.mark("Init(Worth/ItemDB)");
@@ -251,13 +242,6 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
             for (World w : Bukkit.getWorlds())
                 addDefaultBackPermissionsToWorld(w);
 
-            metrics = new Metrics(this);
-            if (!metrics.isOptOut()) {
-                getLogger().info("Starting Metrics. Opt-out using the global bStats config.");
-            } else {
-                getLogger().info("Metrics disabled per bStats config.");
-            }
-
             final String timeroutput = execTimer.end();
             if (getSettings().isDebug()) {
                 LOGGER.log(Level.INFO, "Essentials load {0}", timeroutput);
@@ -292,15 +276,6 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
         final EssentialsBlockListener blockListener = new EssentialsBlockListener(this);
         pm.registerEvents(blockListener, this);
 
-        final SignBlockListener signBlockListener = new SignBlockListener(this);
-        pm.registerEvents(signBlockListener, this);
-
-        final SignPlayerListener signPlayerListener = new SignPlayerListener(this);
-        pm.registerEvents(signPlayerListener, this);
-
-        final SignEntityListener signEntityListener = new SignEntityListener(this);
-        pm.registerEvents(signEntityListener, this);
-
         final EssentialsEntityListener entityListener = new EssentialsEntityListener(this);
         pm.registerEvents(entityListener, this);
 
@@ -309,8 +284,6 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
 
         final EssentialsServerListener serverListener = new EssentialsServerListener(this);
         pm.registerEvents(serverListener, this);
-
-        pm.registerEvents(tntListener, this);
 
         jails.resetListener();
     }
@@ -584,10 +557,6 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
         return warps;
     }
 
-    @Override
-    public Worth getWorth() {
-        return worth;
-    }
 
     @Override
     public Backup getBackup() {
@@ -597,16 +566,6 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
     @Override
     public Kits getKits() {
         return kits;
-    }
-
-    @Override
-    public Metrics getMetrics() {
-        return metrics;
-    }
-
-    @Override
-    public void setMetrics(Metrics metrics) {
-        this.metrics = metrics;
     }
 
     @Deprecated
@@ -784,11 +743,6 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
     @Override
     public int scheduleSyncRepeatingTask(final Runnable run, final long delay, final long period) {
         return this.getScheduler().scheduleSyncRepeatingTask(this, run, delay, period);
-    }
-
-    @Override
-    public TNTExplodeListener getTNTListener() {
-        return tntListener;
     }
 
     @Override

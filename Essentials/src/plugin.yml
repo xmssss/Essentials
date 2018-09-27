@@ -12,18 +12,10 @@ commands:
     description: Marks you as away-from-keyboard.
     usage: /<command> [player/message...]
     aliases: [eafk,away,eaway]
-  antioch:
-    description: 'A little surprise for operators.'
-    usage: /<command> [message]
-    aliases: [eantioch,grenade,egrenade,tnt,etnt]
   back:
     description: Teleports you to your location prior to tp/spawn/warp.
     usage: /<command>
     aliases: [eback,return,ereturn]
-  backup:
-    description: Runs the backup if configured.
-    usage: /<command>
-    aliases: [ebackup]
   balance:
     description: States the current balance of a player.
     usage: /<command> [player]
@@ -32,30 +24,10 @@ commands:
     description: Gets the top balance values.
     usage: /<command> <page>
     aliases: [ebalancetop,baltop,ebaltop]
-  ban:
-    description: Bans a player.
-    usage: /<command> <player> [reason]
-    aliases: [eban]
-  banip:
-    description: Bans an IP address.
-    usage: /<command> <address>
-    aliases: [ebanip]
   book:
     description: Allows reopening and editing of sealed books.
     usage: /<command> [title|author [name]]
     aliases: [ebook]
-  break:
-    description: Breaks the block you are looking at.
-    usage: /<command>
-    aliases: [ebreak]
-  broadcast:
-    description: Broadcasts a message to the entire server.
-    usage: /<command> <msg>
-    aliases: [bc,ebc,bcast,ebcast,ebroadcast,shout,eshout]
-  broadcastworld:
-    description: Broadcasts a message to a world.
-    usage: /<command> <world> <msg>
-    aliases: [bcw,ebcw,bcastw,ebcastw,ebroadcastworld,shoutworld,eshoutworld]
   bigtree:
     description: Spawn a big tree where you are looking.
     usage: /<command> <tree|redwood|jungle>
@@ -80,13 +52,6 @@ commands:
     description: Describes your current bearing.
     usage: /<command>
     aliases: [ecompass,direction,edirection]
-  createkit:
-    description: Create a kit in game!
-    usage: /<command> <kitname> <delay>
-    aliases: [kitcreate,createk,kc,ck]
-  customtext:
-    description: Allows you to create custom text commands.
-    usage: /<alias> - Define in bukkit.yml
   delhome:
     description: Removes a home.
     usage: /<command> [player:]<name>
@@ -127,10 +92,6 @@ commands:
     description: Give, set or look at a players exp.
     usage: /<command> [show|set|give] [playername [amount]]
     aliases: [eexp,xp]
-  ext:
-    description: Extinguish players.
-    usage: /<command> [player]
-    aliases: [eext,extinguish,eextinguish]
   feed:
     description: Satisfy the hunger.
     usage: /<command> [player]
@@ -227,14 +188,6 @@ commands:
     description: Kills specified player.
     usage: /<command> <player>
     aliases: [ekill]
-  kit:
-    description: Obtains the specified kit or views all available kits.
-    usage: /<command> [kit] [player]
-    aliases: [ekit,kits,ekits]
-  kittycannon:
-    description: Throw an exploding kitten at your opponent.
-    usage: /<command>
-    aliases: [ekittycannon]
   lightning:
     description: The power of Thor. Strike at cursor or player.
     usage: /<command> [player] [power]
@@ -247,10 +200,6 @@ commands:
     description: Manages inter-player, intra-server mail.
     usage: /<command> [read|clear|send [to] [message]|sendall [message]]
     aliases: [email,eemail,memo,ememo]
-  me:
-    description: Describes an action in the context of the player.
-    usage: /<command> <description>
-    aliases: [action,eaction,describe,edescribe,eme]
   more:
     description: Fills the item stack in hand to maximum size.
     usage: /<command>
@@ -259,18 +208,6 @@ commands:
     description: Views the Message Of The Day.
     usage: /<command> [chapter] [page]
     aliases: [emotd]
-  msg:
-    description: Sends a private message to the specified player.
-    usage: /<command> <to> <message>
-    aliases: [w,m,t,pm,emsg,epm,tell,etell,whisper,ewhisper]
-  msgtoggle:
-    description: Blocks receiving all private messages.
-    usage: /<command> [player] [on|off]
-    aliases: [emsgtoggle]
-  mute:
-    description: Mutes or unmutes a player.
-    usage: /<command> <player> [datediff]
-    aliases: [emute,silence,esilence]
   near:
     description: Lists the players near by or around a player.
     usage: /<command> [playername] [radius]
@@ -279,10 +216,6 @@ commands:
     description: Change your nickname or that of another player.
     usage: /<command> [player] <nickname|off>
     aliases: [enick,nickname,enickname]
-  nuke:
-    description: May death rain upon them.
-    usage: /<command> [player]
-    aliases: [enuke]
   pay:
     description: Pays another player from your balance.
     usage: /<command> <player> <amount>
@@ -319,18 +252,10 @@ commands:
     description: Adjust a player's weather
     usage: /<command> [list|reset|storm|sun|clear] [player|*]
     aliases: [playerweather,eplayerweather,epweather]
-  r:
-    description: Quickly reply to the last player to message you.
-    usage: /<command> <message>
-    aliases: [er,reply,ereply]
   realname:
     description: Displays the username of a user based on nick.
     usage: /<command> <nickname>
     aliases: [erealname]
-  recipe:
-    description: Displays how to craft items.
-    usage: /<command> <item> [number]
-    aliases: [formula,eformula,method,emethod,erecipe,recipes,erecipes]
   remove:
     description: Removes entities in your world.
     usage: /<command> <all|tamed|named|drops|arrows|boats|minecarts|xp|paintings|itemframes|endercrystals|monsters|animals|ambient|mobs|[mobType]> [radius|world]
@@ -363,22 +288,10 @@ commands:
     description: Creates a new warp.
     usage: /<command> <warp>
     aliases: [createwarp,ecreatewarp,esetwarp]
-  setworth:
-    description: Set the sell value of an item.
-    usage: /<command> [itemname|id] <price>
-    aliases: [esetworth]
-  showkit:
-    description: Show contents of a kit.
-    usage: /<command> <kitname>
-    aliases: [kitpreview,preview,kitshow]
   skull:
     description: Set the owner of a player skull
     usage: /<command> [owner]
     aliases: [eskull, playerskull, eplayerskull, head, ehead]
-  socialspy:
-    description: Toggles if you can see msg/mail commands in chat.
-    usage: /<command> [player] [on|off]
-    aliases: [esocialspy]
   spawner:
     description: Change the mob type of a spawner.
     usage: /<command> <mob> [delay]
@@ -399,10 +312,6 @@ commands:
     description: Causes you to perish.
     usage: /<command>
     aliases: [esuicide]
-  tempban:
-    description: Temporary ban a user.
-    usage: /<command> <playername> <datediff> <reason>
-    aliases: [etempban]
   thunder:
     description: Enable/disable thunder.
     usage: /<command> <true/false> [duration]
@@ -511,10 +420,6 @@ commands:
     description: Switch between worlds.
     usage: /<command> [world]
     aliases: [eworld]
-  worth:
-    description: Calculates the worth of items in hand or as specified.
-    usage: /<command> <<itemname>|<id>|hand|inventory|blocks> [-][amount]
-    aliases: [eprice,price,eworth]
 
 permissions:
   essentials.*:

@@ -1,7 +1,6 @@
 package com.earth2me.essentials;
 
 import com.earth2me.essentials.commands.IEssentialsCommand;
-import com.earth2me.essentials.signs.EssentialsSign;
 import com.earth2me.essentials.textreader.IText;
 
 import org.bukkit.ChatColor;
@@ -136,8 +135,6 @@ public interface ISettings extends IConf {
     boolean isTradeInStacks(int id);
 
     List<Integer> itemSpawnBlacklist();
-
-    List<EssentialsSign> enabledSigns();
 
     boolean permissionBasedItemSpawn();
 
@@ -286,8 +283,6 @@ public interface ISettings extends IConf {
     boolean isNpcsInBalanceRanking();
 
     NumberFormat getCurrencyFormat();
-
-    List<EssentialsSign> getUnprotectedSignNames();
 
     boolean isPastebinCreateKit();
 
