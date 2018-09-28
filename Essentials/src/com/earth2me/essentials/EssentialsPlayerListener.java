@@ -75,34 +75,6 @@ public class EssentialsPlayerListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerChat(final AsyncPlayerChatEvent event) {
-        final User user = ess.getUser(event.getPlayer());
-        if (user.isMuted()) {
-            event.setCancelled(true);
-            user.sendMessage(tl("voiceSilenced"));
-            LOGGER.info(tl("mutedUserSpeaks", user.getName(), event.getMessage()));
-        }
-        try {
-            final Iterator<Player> it = event.getRecipients().iterator();
-            while (it.hasNext()) {
-                final User u = ess.getUser(it.next());
-                if (u.isIgnoredPlayer(user)) {
-                    it.remove();
-                }
-            }
-        } catch (UnsupportedOperationException ex) {
-            if (ess.getSettings().isDebug()) {
-                ess.getLogger().log(Level.INFO, "Ignore could not block chat due to custom chat plugin event.", ex);
-            } else {
-                ess.getLogger().info("Ignore could not block chat due to custom chat plugin event.");
-            }
-        }
-
-        user.updateActivityOnInteract(true);
-        user.setDisplayNick();
-    }
-
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onPlayerMove(final PlayerMoveEvent event) {
         if (event.getFrom().getBlockX() == event.getTo().getBlockX() && event.getFrom().getBlockZ() == event.getTo().getBlockZ() && event.getFrom().getBlockY() == event.getTo().getBlockY()) {
