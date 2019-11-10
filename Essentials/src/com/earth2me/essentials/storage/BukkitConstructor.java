@@ -28,9 +28,11 @@ public class BukkitConstructor extends CustomClassLoaderConstructor {
         yamlClassConstructors.put(NodeId.scalar, new ConstructBukkitScalar());
         yamlClassConstructors.put(NodeId.mapping, new ConstructBukkitMapping());
 
+        /*
         PropertyUtils propertyUtils = getPropertyUtils();
         propertyUtils.setSkipMissingProperties(true);
         setPropertyUtils(propertyUtils);
+        */
     }
 
     private Method constructScalarMethod = null;
