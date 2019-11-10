@@ -80,6 +80,8 @@ import static com.earth2me.essentials.I18n.tl;
 
 
 public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
+    public static Essentials instance;
+
     private static final Logger LOGGER = Logger.getLogger("Essentials");
     private transient ISettings settings;
     private transient Jails jails;
@@ -134,6 +136,7 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
         i18n.onEnable();
         i18n.updateLocale("en");
         Console.setInstance(this);
+        instance = this;
         
         LOGGER.log(Level.INFO, tl("usingTempFolderForTesting"));
         LOGGER.log(Level.INFO, dataFolder.toString());
