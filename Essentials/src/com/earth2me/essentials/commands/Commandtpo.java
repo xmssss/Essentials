@@ -1,6 +1,7 @@
 package com.earth2me.essentials.commands;
 
 import com.earth2me.essentials.User;
+import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
@@ -20,28 +21,15 @@ public class Commandtpo extends EssentialsCommand {
         switch (args.length) {
             case 0:
                 throw new NotEnoughArgumentsException();
-
-            case 1:
-                final User player = getPlayer(server, user, args, 0);
-                if (user.getWorld() != player.getWorld() && ess.getSettings().isWorldTeleportPermissions() && !user.isAuthorized("essentials.worlds." + player.getWorld().getName())) {
-                    throw new Exception(tl("noPerm", "essentials.worlds." + player.getWorld().getName()));
-                }
-                user.getTeleport().now(player.getBase(), false, TeleportCause.COMMAND);
-                break;
-
             default:
-                if (!user.isAuthorized("essentials.tp.others")) {
-                    throw new Exception(tl("noPerm", "essentials.tp.others"));
-                }
-                final User target = getPlayer(server, user, args, 0);
-                final User toPlayer = getPlayer(server, user, args, 1);
-
-                if (target.getWorld() != toPlayer.getWorld() && ess.getSettings().isWorldTeleportPermissions() && !user.isAuthorized("essentials.worlds." + toPlayer.getWorld().getName())) {
-                    throw new Exception(tl("noPerm", "essentials.worlds." + toPlayer.getWorld().getName()));
+                if (!user.isAuthorized("essentials.tp.offline")) {
+                    throw new Exception(tl("noPerm", "essentials.tp.offline"));
                 }
 
-                target.getTeleport().now(toPlayer.getBase(), false, TeleportCause.COMMAND);
-                target.sendMessage(tl("teleportAtoB", user.getDisplayName(), toPlayer.getDisplayName()));
+                final User toPlayer = getPlayer(server, args, 0, true, true);
+
+                Location location = (toPlayer.getBase() != null && toPlayer.getBase().isOnline())  ? toPlayer.getLocation() : toPlayer.getLogoutLocation();
+                user.getTeleport().now(location,false,TeleportCause.COMMAND);
                 break;
         }
     }
