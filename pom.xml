@@ -263,7 +263,7 @@
         <!-- The plugins' release version -->
         <release.version>2.15.0</release.version>
 
-        <build.version>evernife.v1</build.version>
+        <build.version>evernife.v1b</build.version>
 
         <full.version>${release.version}.${build.version}</full.version>
     </properties>
