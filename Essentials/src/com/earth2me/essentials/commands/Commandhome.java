@@ -1,8 +1,12 @@
 package com.earth2me.essentials.commands;
 
+import com.earth2me.essentials.LocationTarget;
 import com.earth2me.essentials.Trade;
 import com.earth2me.essentials.User;
+import com.earth2me.essentials.api.events.UserBackEvent;
+import com.earth2me.essentials.api.events.UserHomeEvent;
 import com.earth2me.essentials.utils.StringUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
@@ -94,7 +98,11 @@ public class Commandhome extends EssentialsCommand {
         if (user.getWorld() != loc.getWorld() && ess.getSettings().isWorldHomePermissions() && !user.isAuthorized("essentials.worlds." + loc.getWorld().getName())) {
             throw new Exception(tl("noPerm", "essentials.worlds." + loc.getWorld().getName()));
         }
-        user.getTeleport().teleport(loc, charge, TeleportCause.COMMAND);
+        UserHomeEvent event = new UserHomeEvent(user, loc, home, charge);
+        Bukkit.getServer().getPluginManager().callEvent(event);
+        if (!event.isCancelled()){
+            user.getTeleport().teleport(event.getHomeLocation(), event.getTrade(), TeleportCause.COMMAND);
+        }
     }
 
     @Override

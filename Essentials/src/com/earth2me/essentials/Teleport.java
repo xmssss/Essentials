@@ -1,9 +1,11 @@
 package com.earth2me.essentials;
 
+import com.earth2me.essentials.api.events.UserBackEvent;
 import com.earth2me.essentials.utils.DateUtil;
 import com.earth2me.essentials.utils.LocationUtil;
 import net.ess3.api.IEssentials;
 import net.ess3.api.IUser;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -260,8 +262,12 @@ public class Teleport implements net.ess3.api.ITeleport {
     public void back(Trade chargeFor) throws Exception {
         tpType = TeleportType.BACK;
         final Location loc = teleportOwner.getLastLocation();
-        teleportOwner.sendMessage(tl("backUsageMsg", loc.getWorld().getName(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ()));
-        teleport(teleportOwner, new LocationTarget(loc), chargeFor, TeleportCause.COMMAND);
+        UserBackEvent event = new UserBackEvent(this.teleportOwner, loc, chargeFor);
+        Bukkit.getServer().getPluginManager().callEvent(event);
+        if (!event.isCancelled()){
+            teleportOwner.sendMessage(tl("backUsageMsg", loc.getWorld().getName(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ()));
+            teleport(teleportOwner, new LocationTarget(event.getLocationToGoBack()), event.getTrade(), TeleportCause.COMMAND);
+        }
     }
 
     //This function is used to throw a user back after a jail sentence
