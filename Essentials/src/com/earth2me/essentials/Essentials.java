@@ -145,7 +145,7 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
         permissionsHandler = new PermissionsHandler(this, false);
         Economy.setEss(this);
         confList = new ArrayList<>();
-        jails = new Jails(this);
+        //jails = new Jails(this);
         registerListeners(server.getPluginManager());
         kits = new Kits(this);
     }
@@ -203,8 +203,8 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
                 itemDb = new ItemDb(this);
                 confList.add(itemDb);
                 execTimer.mark("Init(Worth/ItemDB)");
-                jails = new Jails(this);
-                confList.add(jails);
+               // jails = new Jails(this);
+               // confList.add(jails);
                 spawnerProvider = new ProviderFactory<>(getLogger(),
                         Arrays.asList(
                                 BlockMetaSpawnerProvider.class,
@@ -288,7 +288,7 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
         final EssentialsServerListener serverListener = new EssentialsServerListener(this);
         pm.registerEvents(serverListener, this);
 
-        jails.resetListener();
+        //jails.resetListener();
     }
 
     @Override
@@ -852,7 +852,7 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
         public void onWorldLoad(final WorldLoadEvent event) {
             addDefaultBackPermissionsToWorld(event.getWorld());
 
-            ess.getJails().onReload();
+            //ess.getJails().onReload();
             ess.getWarps().reloadConfig();
             for (IConf iConf : ((Essentials) ess).confList) {
                 if (iConf instanceof IEssentialsModule) {
@@ -863,7 +863,7 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
 
         @EventHandler(priority = EventPriority.LOW)
         public void onWorldUnload(final WorldUnloadEvent event) {
-            ess.getJails().onReload();
+            //ess.getJails().onReload();
             ess.getWarps().reloadConfig();
             for (IConf iConf : ((Essentials) ess).confList) {
                 if (iConf instanceof IEssentialsModule) {

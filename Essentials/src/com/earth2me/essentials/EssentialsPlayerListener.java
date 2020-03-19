@@ -382,6 +382,7 @@ public class EssentialsPlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onPlayerTeleport(final PlayerTeleportEvent event) {
+        if (FCBukkitUtil.isFakePlayer(event.getPlayer().getName())) return;
         final boolean backListener = ess.getSettings().registerBackInListener();
         final boolean teleportInvulnerability = ess.getSettings().isTeleportInvulnerability();
         if (backListener || teleportInvulnerability) {
@@ -398,6 +399,7 @@ public class EssentialsPlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onPlayerEggThrow(final PlayerEggThrowEvent event) {
+        if (FCBukkitUtil.isFakePlayer(event.getPlayer().getName())) return;
         final User user = ess.getUser(event.getPlayer());
         final ItemStack stack = new ItemStack(Material.EGG, 1);
         if (user.hasUnlimited(stack)) {
@@ -408,6 +410,7 @@ public class EssentialsPlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onPlayerBucketEmpty(final PlayerBucketEmptyEvent event) {
+        if (FCBukkitUtil.isFakePlayer(event.getPlayer().getName())) return;
         final User user = ess.getUser(event.getPlayer());
         if (user.hasUnlimited(new ItemStack(event.getBucket()))) {
             event.getItemStack().setType(event.getBucket());
@@ -422,6 +425,7 @@ public class EssentialsPlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerCommandPreprocess(final PlayerCommandPreprocessEvent event) {
+        if (FCBukkitUtil.isFakePlayer(event.getPlayer().getName())) return;
         final Player player = event.getPlayer();
         final String cmd = event.getMessage().toLowerCase(Locale.ENGLISH).split(" ")[0].replace("/", "").toLowerCase(Locale.ENGLISH);
 
@@ -514,6 +518,7 @@ public class EssentialsPlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerChangedWorldFlyReset(final PlayerChangedWorldEvent event) {
+        if (FCBukkitUtil.isFakePlayer(event.getPlayer().getName())) return;
         final User user = ess.getUser(event.getPlayer());
         if (user.getBase().getGameMode() != GameMode.CREATIVE
                 // COMPAT: String compare for 1.7.10
@@ -542,6 +547,7 @@ public class EssentialsPlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerChangedWorld(final PlayerChangedWorldEvent event) {
+        if (FCBukkitUtil.isFakePlayer(event.getPlayer().getName())) return;
         final User user = ess.getUser(event.getPlayer());
         final String newWorld = event.getPlayer().getLocation().getWorld().getName();
         user.setDisplayNick();
@@ -562,6 +568,7 @@ public class EssentialsPlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerInteract(final PlayerInteractEvent event) {
+        if (FCBukkitUtil.isFakePlayer(event.getPlayer().getName())) return;
         switch (event.getAction()) {
             case RIGHT_CLICK_BLOCK:
                 if (!event.isCancelled() && event.getClickedBlock().getType() == Material.BED_BLOCK && ess.getSettings().getUpdateBedAtDaytime()) {
@@ -754,6 +761,7 @@ public class EssentialsPlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
     public void onPlayerFishEvent(final PlayerFishEvent event) {
+        if (FCBukkitUtil.isFakePlayer(event.getPlayer().getName())) return;
         final User user = ess.getUser(event.getPlayer());
             user.updateActivityOnInteract(true);
     }
