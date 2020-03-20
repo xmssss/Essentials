@@ -1,5 +1,7 @@
 package com.earth2me.essentials;
 
+import org.bukkit.entity.Player;
+
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -31,7 +33,11 @@ public class FCBukkitUtil {
         return fakePlayers;
     }
 
-    public static boolean isFakePlayer(String playerName){
-        return fakePlayers.contains(playerName.toLowerCase());
+    public static boolean isFakePlayer(Player player){
+        try {
+            return fakePlayers.contains(player.getName().toLowerCase());
+        }catch (Throwable ignored){
+            return true;
+        }
     }
 }

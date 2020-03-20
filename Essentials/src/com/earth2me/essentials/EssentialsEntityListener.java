@@ -33,10 +33,10 @@ public class EssentialsEntityListener implements Listener {
         final Entity eAttack = event.getDamager();
         final Entity eDefend = event.getEntity();
         if (eAttack instanceof Player) {
-            if (FCBukkitUtil.isFakePlayer(eAttack.getName())) return;
+            if (FCBukkitUtil.isFakePlayer((Player) eAttack)) return;
             final User attacker = ess.getUser((Player) eAttack);
             if (eDefend instanceof Player) {
-                if (FCBukkitUtil.isFakePlayer(eDefend.getName())) return;
+                if (FCBukkitUtil.isFakePlayer((Player) eDefend)) return;
                 onPlayerVsPlayerDamage(event, (Player) eDefend, attacker);
             } else if (eDefend instanceof Ageable) {
                 final ItemStack hand = attacker.getBase().getItemInHand();
@@ -51,6 +51,7 @@ public class EssentialsEntityListener implements Listener {
             }
             attacker.updateActivityOnInteract(true);
         } else if (eAttack instanceof Projectile && eDefend instanceof Player) {
+            if (FCBukkitUtil.isFakePlayer((Player) eDefend)) return;
             final Projectile projectile = (Projectile) event.getDamager();
             //This should return a ProjectileSource on 1.7.3 beta +
             final Object shooter = projectile.getShooter();
@@ -110,7 +111,7 @@ public class EssentialsEntityListener implements Listener {
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
     public void onEntityDamage(final EntityDamageEvent event) {
         if (event.getEntity() instanceof Player) {
-            if (FCBukkitUtil.isFakePlayer(event.getEntity().getName())) return;
+            if (FCBukkitUtil.isFakePlayer((Player)event.getEntity())) return;
             if (ess.getUser((Player) event.getEntity()).isGodModeEnabled()) {
                 final Player player = (Player) event.getEntity();
                 player.setFireTicks(0);
@@ -123,7 +124,7 @@ public class EssentialsEntityListener implements Listener {
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
     public void onEntityCombust(final EntityCombustEvent event) {
         if (event.getEntity() instanceof Player) {
-            if (FCBukkitUtil.isFakePlayer(event.getEntity().getName())) return;
+            if (FCBukkitUtil.isFakePlayer((Player)event.getEntity())) return;
             if (ess.getUser((Player) event.getEntity()).isGodModeEnabled()) {
                 event.setCancelled(true);
             }
@@ -133,7 +134,7 @@ public class EssentialsEntityListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onEntityCombustByEntity(final EntityCombustByEntityEvent event) {
         if (event.getCombuster() instanceof Arrow && event.getEntity() instanceof Player) {
-            if (FCBukkitUtil.isFakePlayer(event.getEntity().getName())) return;
+            if (FCBukkitUtil.isFakePlayer((Player)event.getEntity())) return;
             Arrow combuster = (Arrow) event.getCombuster();
             if (combuster.getShooter() instanceof Player) {
                 final User srcCombuster = ess.getUser(((Player) combuster.getShooter()).getUniqueId());
