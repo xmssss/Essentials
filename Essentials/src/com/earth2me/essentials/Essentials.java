@@ -18,7 +18,6 @@
 package com.earth2me.essentials;
 
 import com.earth2me.essentials.commands.*;
-import com.earth2me.essentials.metrics.Metrics;
 import com.earth2me.essentials.perm.PermissionsHandler;
 import com.earth2me.essentials.register.payment.Methods;
 import com.earth2me.essentials.signs.SignBlockListener;
@@ -101,7 +100,6 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
     private transient UserMap userMap;
     private transient ExecuteTimer execTimer;
     private transient I18n i18n;
-    private transient Metrics metrics;
     private transient EssentialsTimer timer;
     private final transient Set<String> vanishedPlayers = new LinkedHashSet<>();
     private transient Method oldGetOnlinePlayers;
@@ -253,13 +251,6 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
 
             for (World w : Bukkit.getWorlds())
                 addDefaultBackPermissionsToWorld(w);
-
-            metrics = new Metrics(this);
-            if (!metrics.isOptOut()) {
-                getLogger().info("Starting Metrics. Opt-out using the global bStats config.");
-            } else {
-                getLogger().info("Metrics disabled per bStats config.");
-            }
 
             final String timeroutput = execTimer.end();
             if (getSettings().isDebug()) {
@@ -602,15 +593,6 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
         return kits;
     }
 
-    @Override
-    public Metrics getMetrics() {
-        return metrics;
-    }
-
-    @Override
-    public void setMetrics(Metrics metrics) {
-        this.metrics = metrics;
-    }
 
     @Deprecated
     @Override
