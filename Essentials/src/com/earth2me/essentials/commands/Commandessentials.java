@@ -4,6 +4,7 @@ import com.earth2me.essentials.CommandSource;
 import com.earth2me.essentials.EssentialsUpgrade;
 import com.earth2me.essentials.User;
 import com.earth2me.essentials.UserMap;
+import com.earth2me.essentials.metrics.Metrics;
 import com.earth2me.essentials.utils.DateUtil;
 import com.earth2me.essentials.utils.FloatUtil;
 import com.earth2me.essentials.utils.NumberUtil;
@@ -197,7 +198,16 @@ public class Commandessentials extends EssentialsCommand {
     }
 
     private void run_optout(final Server server, final CommandSource sender, final String command, final String args[]) {
-        sender.sendMessage("No Metrics are available for this essentials version");
+        final Metrics metrics = ess.getMetrics();
+
+        sender.sendMessage("Essentials collects simple metrics to highlight which features to concentrate work on in the future.");
+        if (metrics.isOptOut()) {
+            metrics.enable();
+        } else {
+            metrics.disable();
+        }
+        sender.sendMessage("Anonymous Metrics are now " + (metrics.isOptOut() ? "disabled" : "enabled") + " for EssentialsX until server restart.");
+        sender.sendMessage("To " + (metrics.isOptOut() ? "disable" : "enable") + " them for all plugins permanently, see the bStats config.");
     }
 
     private void run_cleanup(final Server server, final CommandSource sender, final String command, final String args[]) throws Exception {

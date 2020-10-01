@@ -1,6 +1,8 @@
 package com.earth2me.essentials;
 
 import com.earth2me.essentials.commands.IEssentialsCommand;
+import com.earth2me.essentials.signs.EssentialsSign;
+import com.earth2me.essentials.signs.Signs;
 import com.earth2me.essentials.textreader.IText;
 import com.earth2me.essentials.textreader.SimpleTextInput;
 import com.earth2me.essentials.utils.FormatUtil;
@@ -395,7 +397,7 @@ public class Settings implements net.ess3.api.ISettings {
 
     @Override
     public boolean areSignsDisabled() {
-        return false;
+        return !signsEnabled;
     }
 
     @Override
@@ -482,6 +484,7 @@ public class Settings implements net.ess3.api.ISettings {
     public void reloadConfig() {
         config.load();
         noGodWorlds = new HashSet<String>(config.getStringList("no-god-in-worlds"));
+        enabledSigns = _getEnabledSigns();
         teleportSafety = _isTeleportSafetyEnabled();
         forceDisableTeleportSafety = _isForceDisableTeleportSafety();
         teleportInvulnerabilityTime = _getTeleportInvulnerability();
@@ -531,6 +534,7 @@ public class Settings implements net.ess3.api.ISettings {
         commandCooldowns = _getCommandCooldowns();
         npcsInBalanceRanking = _isNpcsInBalanceRanking();
         currencyFormat = _getCurrencyFormat();
+        unprotectedSigns = _getUnprotectedSign();
         defaultEnabledConfirmCommands = _getDefaultEnabledConfirmCommands();
         isCompassTowardsHomePerm = _isCompassTowardsHomePerm();
         isAllowWorldInBroadcastworld = _isAllowWorldInBroadcastworld();
@@ -562,6 +566,39 @@ public class Settings implements net.ess3.api.ISettings {
             }
         }
         return epItemSpwn;
+    }
+
+    private List<EssentialsSign> enabledSigns = new ArrayList<EssentialsSign>();
+    private boolean signsEnabled = false;
+
+    @Override
+    public List<EssentialsSign> enabledSigns() {
+        return enabledSigns;
+    }
+
+    private List<EssentialsSign> _getEnabledSigns() {
+        this.signsEnabled = false; // Ensure boolean resets on reload.
+
+        List<EssentialsSign> newSigns = new ArrayList<EssentialsSign>();
+
+        for (String signName : config.getStringList("enabledSigns")) {
+            signName = signName.trim().toUpperCase(Locale.ENGLISH);
+            if (signName.isEmpty()) {
+                continue;
+            }
+            if (signName.equals("COLOR") || signName.equals("COLOUR")) {
+                signsEnabled = true;
+                continue;
+            }
+            try {
+                newSigns.add(Signs.valueOf(signName).getSign());
+            } catch (Exception ex) {
+                logger.log(Level.SEVERE, tl("unknownItemInList", signName, "enabledSigns"));
+                continue;
+            }
+            signsEnabled = true;
+        }
+        return newSigns;
     }
 
     private boolean warnOnBuildDisallow;
@@ -1331,6 +1368,31 @@ public class Settings implements net.ess3.api.ISettings {
     @Override
     public NumberFormat getCurrencyFormat() {
         return this.currencyFormat;
+    }
+
+    private List<EssentialsSign> unprotectedSigns = Collections.emptyList();
+
+    @Override
+    public List<EssentialsSign> getUnprotectedSignNames() {
+        return this.unprotectedSigns;
+    }
+
+    private List<EssentialsSign> _getUnprotectedSign() {
+        List<EssentialsSign> newSigns = new ArrayList<>();
+
+        for (String signName : config.getStringList("unprotected-sign-names")) {
+            signName = signName.trim().toUpperCase(Locale.ENGLISH);
+            if (signName.isEmpty()) {
+                continue;
+            }
+            try {
+                newSigns.add(Signs.valueOf(signName).getSign());
+            } catch (Exception ex) {
+                logger.log(Level.SEVERE, tl("unknownItemInList", signName, "unprotected-sign-names"));
+                continue;
+            }
+        }
+        return newSigns;
     }
 
     @Override

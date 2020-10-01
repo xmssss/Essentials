@@ -1,7 +1,6 @@
 package com.earth2me.essentials.commands;
 
 import com.earth2me.essentials.User;
-import org.bukkit.Bukkit;
 import org.bukkit.Server;
 
 import java.util.Collections;
@@ -38,11 +37,9 @@ public class Commandignore extends EssentialsCommand {
                 user.sendMessage(tl("ignoreExempt"));
             } else if (user.isIgnoredPlayer(player)) {
                 user.setIgnoredPlayer(player, false);
-                Bukkit.getServer().dispatchCommand(user.getBase(),"uchat ignore " + player.getName());
                 user.sendMessage(tl("unignorePlayer", player.getName()));
             } else {
                 user.setIgnoredPlayer(player, true);
-                Bukkit.getServer().dispatchCommand(user.getBase(),"uchat ignore " + player.getName());
                 user.sendMessage(tl("ignorePlayer", player.getName()));
             }
         }
