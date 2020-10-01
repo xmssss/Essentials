@@ -16,12 +16,6 @@
         </license>
     </licenses>
 
-    <scm>
-        <connection>scm:git:https://github.com/drtshock/Essentials.git</connection>
-        <developerConnection>scm:git:https://github.com/drtshock/Essentials.git</developerConnection>
-        <url>https://github.com/drtshock/Essentials</url>
-    </scm>
-
     <repositories>
         <repository>
             <id>ess-repo</id>
@@ -35,12 +29,8 @@
 
     <modules>
         <module>Essentials</module>
-        <module>EssentialsAntiBuild</module>
         <module>EssentialsChat</module>
-        <module>EssentialsGeoIP</module>
-        <module>EssentialsProtect</module>
         <module>EssentialsSpawn</module>
-        <module>EssentialsXMPP</module>
         <module>nms/NMSProvider</module>
         <module>nms/UpdatedMetaProvider</module>
         <module>nms/1_8_R1Provider</module>
@@ -121,32 +111,12 @@
                         </artifactItem>
                         <artifactItem>
                             <groupId>${project.groupId}</groupId>
-                            <artifactId>EssentialsXAntiBuild</artifactId>
-                            <version>${project.version}</version>
-                        </artifactItem>
-                        <artifactItem>
-                            <groupId>${project.groupId}</groupId>
                             <artifactId>EssentialsXChat</artifactId>
                             <version>${project.version}</version>
                         </artifactItem>
                         <artifactItem>
                             <groupId>${project.groupId}</groupId>
-                            <artifactId>EssentialsXGeoIP</artifactId>
-                            <version>${project.version}</version>
-                        </artifactItem>
-                        <artifactItem>
-                            <groupId>${project.groupId}</groupId>
-                            <artifactId>EssentialsXProtect</artifactId>
-                            <version>${project.version}</version>
-                        </artifactItem>
-                        <artifactItem>
-                            <groupId>${project.groupId}</groupId>
                             <artifactId>EssentialsXSpawn</artifactId>
-                            <version>${project.version}</version>
-                        </artifactItem>
-                        <artifactItem>
-                            <groupId>${project.groupId}</groupId>
-                            <artifactId>EssentialsXXMPP</artifactId>
                             <version>${project.version}</version>
                         </artifactItem>
                     </artifactItems>
@@ -203,7 +173,7 @@
                             <value>${full.version}</value>
                         </replacement>
                         <replacement>
-                            <token>$${build.number}</token>
+                            <token>2</token>
                             <value>${full.version}</value>
                         </replacement>
                     </replacements>
@@ -288,9 +258,6 @@
         <!-- The plugins' release version -->
         <release.version>2.15.0</release.version>
 
-        <!-- The plugins' build number -->
-        <build.version>${git.closest.tag.commit.count}</build.version>
-
-        <full.version>${release.version}.${build.version}</full.version>
+        <full.version>${release.version}</full.version>
     </properties>
 </project>
