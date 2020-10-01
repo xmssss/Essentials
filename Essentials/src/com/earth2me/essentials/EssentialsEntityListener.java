@@ -33,10 +33,8 @@ public class EssentialsEntityListener implements Listener {
         final Entity eAttack = event.getDamager();
         final Entity eDefend = event.getEntity();
         if (eAttack instanceof Player) {
-            if (FCBukkitUtil.isFakePlayer(eAttack.getName())) return;
             final User attacker = ess.getUser((Player) eAttack);
             if (eDefend instanceof Player) {
-                if (FCBukkitUtil.isFakePlayer(eDefend.getName())) return;
                 onPlayerVsPlayerDamage(event, (Player) eDefend, attacker);
             } else if (eDefend instanceof Ageable) {
                 final ItemStack hand = attacker.getBase().getItemInHand();
@@ -109,31 +107,24 @@ public class EssentialsEntityListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
     public void onEntityDamage(final EntityDamageEvent event) {
-        if (event.getEntity() instanceof Player) {
-            if (FCBukkitUtil.isFakePlayer(event.getEntity().getName())) return;
-            if (ess.getUser((Player) event.getEntity()).isGodModeEnabled()) {
-                final Player player = (Player) event.getEntity();
-                player.setFireTicks(0);
-                player.setRemainingAir(player.getMaximumAir());
-                event.setCancelled(true);
-            }
+        if (event.getEntity() instanceof Player && ess.getUser((Player) event.getEntity()).isGodModeEnabled()) {
+            final Player player = (Player) event.getEntity();
+            player.setFireTicks(0);
+            player.setRemainingAir(player.getMaximumAir());
+            event.setCancelled(true);
         }
     }
 
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
     public void onEntityCombust(final EntityCombustEvent event) {
-        if (event.getEntity() instanceof Player) {
-            if (FCBukkitUtil.isFakePlayer(event.getEntity().getName())) return;
-            if (ess.getUser((Player) event.getEntity()).isGodModeEnabled()) {
-                event.setCancelled(true);
-            }
+        if (event.getEntity() instanceof Player && ess.getUser((Player) event.getEntity()).isGodModeEnabled()) {
+            event.setCancelled(true);
         }
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onEntityCombustByEntity(final EntityCombustByEntityEvent event) {
         if (event.getCombuster() instanceof Arrow && event.getEntity() instanceof Player) {
-            if (FCBukkitUtil.isFakePlayer(event.getEntity().getName())) return;
             Arrow combuster = (Arrow) event.getCombuster();
             if (combuster.getShooter() instanceof Player) {
                 final User srcCombuster = ess.getUser(((Player) combuster.getShooter()).getUniqueId());
