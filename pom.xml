@@ -254,10 +254,6 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <!-- The plugins' release version -->
-        <release.version>2.15.0</release.version>
-
         <full.version>${release.version}</full.version>
     </properties>
 </project>
