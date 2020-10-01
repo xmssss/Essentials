@@ -196,6 +196,9 @@ public class Commandessentials extends EssentialsCommand {
         }
     }
 
+    private void run_optout(final Server server, final CommandSource sender, final String command, final String args[]) {
+        sender.sendMessage("No Metrics are available for this essentials version");
+    }
 
     private void run_cleanup(final Server server, final CommandSource sender, final String command, final String args[]) throws Exception {
         if (args.length < 2 || !NumberUtil.isInt(args[1])) {
