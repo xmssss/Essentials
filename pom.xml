@@ -172,10 +172,6 @@
                             <token>TeamCity</token>
                             <value>${full.version}</value>
                         </replacement>
-                        <replacement>
-                            <token>2</token>
-                            <value>${full.version}</value>
-                        </replacement>
                     </replacements>
                 </configuration>
                 <inherited>false</inherited>
