@@ -9,6 +9,7 @@ import org.bukkit.Server;
 import org.bukkit.entity.LightningStrike;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -28,7 +29,7 @@ public class Commandlightning extends EssentialsLoopCommand {
         if (sender.isPlayer()) {
             user = ess.getUser(sender.getPlayer());
             if ((args.length < 1 || user != null && !user.isAuthorized("essentials.lightning.others"))) {
-                user.getWorld().strikeLightning(user.getBase().getTargetBlock((Set<Material>) null, 600).getLocation());
+                user.getWorld().strikeLightning(user.getBase().getTargetBlock((HashSet<Byte>) null, 600).getLocation());
                 return;
             }
         }

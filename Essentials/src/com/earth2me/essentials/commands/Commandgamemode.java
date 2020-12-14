@@ -111,15 +111,13 @@ public class Commandgamemode extends EssentialsCommand {
             mode = GameMode.ADVENTURE;
         } else if (modeString.equalsIgnoreCase("gmt") || modeString.equalsIgnoreCase("egmt") || modeString.contains("toggle") || modeString.contains("cycle") || modeString.equalsIgnoreCase("t")) {
             mode = null;
-        } else if (modeString.equalsIgnoreCase("gmsp") || modeString.equalsIgnoreCase("egmsp") || modeString.contains("spec") || modeString.equalsIgnoreCase("3") || modeString.equalsIgnoreCase("sp")) {
-            mode = GameMode.SPECTATOR;
         } else {
             throw new NotEnoughArgumentsException();
         }
         return mode;
     }
 
-    private List<String> STANDARD_OPTIONS = ImmutableList.of("creative", "survival", "adventure", "spectator", "toggle");
+    private List<String> STANDARD_OPTIONS = ImmutableList.of("creative", "survival", "adventure", "toggle");
     @Override
     protected List<String> getTabCompleteOptions(final Server server, final CommandSource sender, final String commandLabel, final String[] args) {
         if (args.length == 1) {
